@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dr. Garber's Bioformulas — Heal Without Harm™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F6F3; --paper:#FFFFFF; --paper-2:#EDEDE8;
+  --ink:#23281F; --ink-soft:#5B635A;
+  --forest:#33473A; --forest-2:#3E5446;
+  --sage:#DDE7D1; --moss:#5E6E54; --olive:#6E7A5E;
+  --clay:#5E6E54; --stone:#C7C7BF; --mist:#E3E3DC;
+  --ice:#DDE7D1; --rose:#E7ECDF; --indigo:#46594B; --indigo-2:#566A59;
+  --purple:#6A4C93; --purple-d:#573D7B;
+  --line:rgba(35,40,31,.12); --line-soft:rgba(35,40,31,.07);
+  --shadow:0 1px 2px rgba(34,39,30,.04),0 18px 50px -28px rgba(34,39,30,.30);
+  --r:18px; --maxw:1560px; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hanken Grotesk",system-ui,sans-serif;font-weight:400;line-height:1.5;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,2.6vw,40px)}
+.eyebrow{font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--moss)}
+.tag{font-size:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  background:rgba(250,249,245,.85);border:1px solid var(--line);border-radius:100px;padding:5px 11px;display:inline-block}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.03em;line-height:1.04}
+p{margin:0}
+.serif{}
+.btn{display:inline-flex;align-items:center;gap:.6em;font-weight:500;font-size:16px;
+  padding:14px 24px;border-radius:100px;border:1px solid var(--purple);background:var(--purple);color:#fff;
+  cursor:pointer;transition:transform .4s var(--ease),background .3s,color .3s,box-shadow .4s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(34,39,30,.6)}
+.btn:not(.btn--ghost):hover{background:var(--purple-d);border-color:var(--purple-d);color:#fff}
+.btn .arr{transition:transform .4s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{background:rgba(34,39,30,.05);box-shadow:none}
+.btn--light{background:var(--purple);color:#fff;border-color:transparent}
+.btn--moss{background:var(--purple);border-color:var(--purple);color:#fff}
+
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:160;
+  background:var(--moss);transition:width .1s linear}
+
+/* announcement */
+.anews{position:fixed;top:0;left:0;right:0;z-index:130;background:var(--forest);color:#E7E8DD;
+  font-size:16px;letter-spacing:.02em;transition:transform .45s var(--ease)}
+.anews.hide{transform:translateY(-100%)}
+.anews .row{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;padding:9px 16px;text-align:center}
+.anews b{color:#DDE7D1;font-weight:600}
+.anews .sep{opacity:.4}
+
+/* nav */
+.nav{position:fixed;top:38px;left:0;right:0;z-index:100;transition:top .45s var(--ease)}
+.nav.top0{top:0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;
+  margin:12px auto;max-width:var(--maxw);padding:10px 18px;border-radius:100px;
+  background:rgba(235,234,228,.5);border:1px solid transparent;backdrop-filter:blur(0);transition:all .45s var(--ease)}
+.nav.scrolled .nav-inner{background:rgba(248,247,242,.82);border-color:var(--line-soft);
+  backdrop-filter:blur(16px);box-shadow:0 10px 30px -20px rgba(34,39,30,.4)}
+.brand{display:inline-flex;align-items:center}
+.brand .logo{height:40px;width:auto;display:block;transition:height .45s var(--ease)}
+.nav.scrolled .brand .logo{height:34px}
+.brand b{font-weight:700;letter-spacing:-.03em;font-size:19px}
+.brand b span{color:var(--moss)}
+.brand small{font-size:16px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.nav-links{display:flex;gap:24px;font-size:16px;font-weight:500;color:var(--ink-soft)}
+.nav-links a{position:relative;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:1.5px;width:0;background:var(--moss);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:12px}
+.menu-btn{display:none}
+
+/* hero */
+.hero{padding:128px 0 26px}
+.hero>.wrap{max-width:1840px;padding-left:clamp(10px,1.1vw,16px);padding-right:clamp(10px,1.1vw,16px)}
+.hero-card{position:relative;border-radius:26px;overflow:hidden;min-height:84vh;display:flex;align-items:flex-end;
+  background:#33473A}
+.hero-photo{position:absolute;inset:0;background-size:cover;background-position:right center;
+  background-image:url("https://res.cloudinary.com/dcuswyfur/image/upload/v1782410661/Stuart_H._Garber_1_jgxvjx.png");
+  opacity:1}
+.hero-card::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(8,22,15,.88) 0%,rgba(8,22,15,.62) 28%,rgba(8,22,15,.22) 52%,rgba(8,22,15,0) 72%)}
+.hero-noise{position:absolute;inset:0;opacity:.45;mix-blend-mode:overlay;pointer-events:none}
+.hero-kicker{display:inline-flex;align-items:center;background:rgba(248,247,242,.14);
+  backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:8px 16px;
+  color:#F4F3EE;font-size:16px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px;
+  max-width:none;white-space:nowrap;line-height:1.3;opacity:0;transform:translateY(12px);transition:all .8s var(--ease) .32s}
+.hero-card.in .hero-kicker{opacity:1;transform:none}
+.hero-content{position:relative;z-index:3;padding:0 clamp(24px,5vw,60px) clamp(34px,5vw,56px);color:#F4F3EE;max-width:1320px}
+.hero h1{font-size:clamp(30px,4.9vw,56px);font-weight:500;line-height:1.1;letter-spacing:-.035em}
+.hero h1 .ln{display:block;overflow:hidden;padding:.06em 0}
+.hero h1 .ln i{display:block;font-style:normal;transform:translateY(120%);transition:transform 1s var(--ease)}
+.hero-card.in h1 .ln:nth-child(1) i{transition-delay:.12s}
+.hero-card.in h1 .ln:nth-child(2) i{transition-delay:.26s}
+.hero-card.in h1 .ln:nth-child(3) i{transition-delay:.40s}
+.hero-card.in h1 .ln i{transform:translateY(0)}
+.hero h1 .accent{color:#DDE7D1}
+.hero-sub{margin-top:18px;font-size:clamp(19px,1.9vw,22px);max-width:600px;color:rgba(244,243,238,.9);
+  opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .5s}
+.hero-card.in .hero-sub{opacity:1;transform:none}
+.hero-ticks{display:grid;grid-template-columns:1fr 1fr;gap:11px 30px;margin:20px 0 0;padding:0;max-width:840px;
+  opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .6s}
+.hero-card.in .hero-ticks{opacity:1;transform:none}
+.hero-ticks li{list-style:none;display:flex;align-items:flex-start;gap:8px;font-size:16px;line-height:1.4;color:rgba(244,243,238,.92)}
+.hero-ticks .ck{color:#DDE7D1;flex:none}
+.hero-cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(14px);transition:all .9s var(--ease) .72s}
+.hero-card.in .hero-cta{opacity:1;transform:none}
+.hero-cta .btn{background:#F4F3EE;color:var(--ink);border-color:transparent}
+.hero-cta .btn--ghost{background:rgba(248,247,242,.1);color:#F4F3EE;border-color:rgba(255,255,255,.3)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+[data-stagger]>*{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+[data-stagger].in>*{opacity:1;transform:none}
+
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:30px}
+.sec-head h2{font-size:clamp(26px,3.6vw,42px);max-width:620px}
+.sec-head .lede{max-width:330px;color:var(--ink-soft);font-size:19px;line-height:1.55}
+.sec-head--center{flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.sec-head--center h2{max-width:none}
+.sec-head--center .lede{max-width:620px}
+.rating-badge{display:inline-flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);
+  border-radius:100px;padding:11px 22px;margin-top:6px;box-shadow:var(--shadow)}
+.rating-badge .rstars{color:var(--purple);letter-spacing:3px;font-size:20px;line-height:1}
+.rating-badge b{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.rating-badge .rmeta{font-size:16px;color:var(--ink-soft)}
+.rating-badge .rmeta strong{color:var(--ink);font-weight:700}
+
+/* the shift */
+.trustbar{background:var(--paper);border-bottom:1px solid var(--line-soft)}
+.trustbar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;padding:22px 0}
+.tb{display:flex;align-items:center;gap:12px;font-size:16px;line-height:1.35;color:var(--ink)}
+.tb svg{width:26px;height:26px;color:var(--moss);flex:none}
+.trustbar-grid .tb:not(:first-child){border-left:1px solid var(--line-soft);padding-left:26px}
+.shift{padding:78px 0}
+.shift-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center}
+.shift-text{text-align:left}
+.shift-text .eyebrow{margin-bottom:18px;display:block}
+.shift-text h2{font-size:clamp(25px,3.6vw,40px);font-weight:400;letter-spacing:-.03em;line-height:1.12;max-width:none;margin:0}
+.shift-text .body{margin-top:24px;display:flex;flex-direction:column;gap:16px;max-width:58ch;
+  color:var(--ink-soft);font-size:clamp(19px,1.9vw,22px);line-height:1.65;text-align:left}
+.shift-text .close{margin-top:24px;font-style:italic;font-size:clamp(21px,2.6vw,27px);color:var(--ink)}
+.shift-media img{display:block;width:100%;height:auto;border-radius:20px}
+
+/* meet doctor */
+.meet{padding:60px 0}
+.meet-card{background:var(--paper-2);color:var(--ink);border:1px solid var(--line-soft);border-radius:26px;overflow:hidden;display:grid;grid-template-columns:.82fr 1.18fr}
+.meet-photo{position:relative;min-height:520px;background-size:cover;background-position:center top;
+  background-image:url("https://res.cloudinary.com/dcuswyfur/image/upload/v1782414377/drgarber-headshot_LE_upscale_prime_ahc1zo.jpg")}
+.meet-photo::before{content:"";position:absolute;inset:0;background:rgba(35,40,31,.08)}
+.meet-photo .cap{position:absolute;left:20px;bottom:20px;background:rgba(20,24,17,.46);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 16px;font-size:16px;color:#EDEDE5}
+.meet-photo .cap b{display:block;font-size:16px;margin-bottom:2px}
+.meet-body{padding:clamp(30px,4vw,56px);display:flex;flex-direction:column;justify-content:center;gap:20px}
+.meet-body .eyebrow{color:var(--moss)}
+.meet-body h2{font-size:clamp(22px,2.9vw,36px);font-weight:500;white-space:nowrap;color:var(--ink)}
+.meet-story{display:flex;flex-direction:column;gap:15px;font-size:clamp(19px,2vw,23px);
+  line-height:1.6;color:var(--ink-soft)}
+.meet-story em{font-style:italic;color:var(--ink)}
+.names{font-style:italic;font-size:clamp(19px,2.1vw,24px);color:var(--ink);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
+.meet-creds{display:flex;gap:30px;flex-wrap:wrap;margin-top:2px}
+.meet-creds div b{font-size:26px;font-weight:600;letter-spacing:-.03em;display:block;color:var(--ink)}
+.meet-creds div span{font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.meet-sign{font-style:italic;font-size:24px;color:#fff;margin-top:4px}
+
+.gallery{padding:8px 0 52px}
+.gallery-track-wrap{width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.gallery-track{display:flex;gap:16px;width:max-content;padding:4px 0;animation:galslide 55s linear infinite}
+.gallery-track-wrap:hover .gallery-track{animation-play-state:paused}
+.gshot{flex:0 0 auto;height:260px;border-radius:16px;overflow:hidden;border:1px solid var(--line-soft);background:var(--paper-2)}
+.gshot img{height:100%;width:auto;display:block;object-fit:cover}
+@keyframes galslide{to{transform:translateX(-50%)}}
+
+/* science / triad */
+.science{padding:60px 0}
+.sci-split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,5vw,68px);align-items:center;margin-bottom:42px}
+.sci-intro{max-width:760px}
+.sci-intro h2{font-size:clamp(26px,3.6vw,42px);font-weight:500}
+.sci-intro p{margin-top:16px;color:var(--ink-soft);font-size:clamp(19px,1.9vw,22px);line-height:1.6}
+.triad{display:flex;flex-direction:column;gap:14px;margin:0}
+.tri{background:var(--paper);border:1px solid var(--line-soft);border-radius:var(--r);padding:22px 24px;
+  display:grid;grid-template-columns:auto 1fr;column-gap:18px;row-gap:3px;align-items:start;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.tri:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.tri .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;grid-row:1/3;align-self:start}
+.tri .ic svg{width:27px;height:27px}
+.tri h3{font-size:20px;font-weight:600;letter-spacing:-.02em;align-self:center}
+.tri p{font-size:19px;color:var(--ink-soft);line-height:1.5}
+.ic-gem{background:#33473A}
+.ic-lith{background:#46594B}
+.ic-org{background:#566A59}
+.trust-list{background:var(--forest);color:#E7E8DD;border-radius:22px;padding:clamp(26px,4vw,48px);
+  display:grid;grid-template-columns:0.88fr 1.12fr;gap:clamp(28px,4vw,48px);align-items:stretch}
+.trust-list h3{font-size:clamp(25px,3.2vw,38px);font-weight:500;color:#fff;margin-bottom:26px;max-width:22ch;line-height:1.12;letter-spacing:-.02em}
+.trust-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.trust-grid li{list-style:none;display:flex;gap:12px;font-size:19px;line-height:1.5;color:rgba(231,232,221,.92)}
+.trust-grid .ck{color:#DDE7D1;flex:none;margin-top:2px}
+.trust-media{position:relative;align-self:stretch;border-radius:16px;overflow:hidden;min-height:340px}
+.trust-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.trust-foot{margin-top:24px;padding-top:20px;border-top:1px solid rgba(231,232,221,.16);
+  font-style:italic;font-size:clamp(19px,2.1vw,24px);color:#fff}
+
+/* protocols */
+.protocols{padding:60px 0}
+.proto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proto{background:var(--paper);border:1px solid var(--line-soft);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.proto:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.proto .top{position:relative;padding:0;color:#F4F3EE;overflow:hidden;aspect-ratio:1/1;display:flex;align-items:flex-end}
+.proto .top.t-age{background:#33473A}
+.proto .top.t-imm{background:#46594B}
+.proto .top.t-str{background:#566A59}
+.proto .top .top-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.proto .top::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,22,15,0) 36%,rgba(8,22,15,.4) 62%,rgba(8,22,15,.92) 100%)}
+.proto .top-meta{position:relative;z-index:2;width:100%;padding:22px 24px}
+.proto .top .kick{font-size:16px;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.proto .top h3{font-size:23px;font-weight:600;margin-top:6px;letter-spacing:-.02em}
+.proto .top .tag{margin-top:12px;background:rgba(20,24,17,.42);border-color:rgba(255,255,255,.3);color:#fff;backdrop-filter:blur(4px)}
+.proto .mid{padding:22px 24px;flex:1;display:flex;flex-direction:column;gap:14px}
+.proto .desc{font-size:19px;color:var(--ink-soft);line-height:1.55}
+.proto .inside{display:flex;flex-direction:column;gap:11px}
+.proto .inside .it{display:flex;gap:11px;align-items:flex-start}
+.proto .inside .it .ck{color:var(--moss);flex:none;margin-top:2px}
+.proto .inside .it b{font-weight:600;font-size:19px}
+.proto .inside .it span{font-size:19px;color:var(--ink-soft);line-height:1.45}
+.proto .foot{padding:18px 24px 24px;border-top:1px solid var(--line-soft)}
+.proto .price{display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
+.proto .price b{font-size:24px;font-weight:600;letter-spacing:-.02em}
+.proto .price span{font-size:16px;color:var(--ink-soft)}
+.proto .foot .btn{width:100%;justify-content:center}
+
+/* quiz */
+.quiz{padding:60px 0}
+.quiz-shell{background:var(--paper);border:1px solid var(--line-soft);border-radius:26px;padding:clamp(28px,4vw,52px)}
+.qhead{text-align:center;max-width:none;margin:0 auto 30px}
+.qhead h2{font-size:clamp(22px,3vw,34px);font-weight:500;margin-top:12px;white-space:nowrap}
+.qhead p{margin:12px auto 0;color:var(--ink-soft);font-size:19px;line-height:1.55;max-width:520px}
+.quiz-box{max-width:720px;margin:0 auto}
+.qbar{margin-bottom:28px}
+.qmeta{display:flex;justify-content:space-between;font-size:16px;color:var(--ink-soft);margin-bottom:10px;font-weight:500}
+.qprogress{height:7px;background:var(--paper-2);border-radius:100px;overflow:hidden}
+.qprogress i{display:block;height:100%;width:16.6%;background:var(--moss);border-radius:100px;transition:width .45s var(--ease)}
+.qstep{display:none}
+.qstep.active{display:block;animation:qfade .45s var(--ease)}
+@keyframes qfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qstep h3{font-size:21px;font-weight:600;letter-spacing:-.01em;margin-bottom:20px;text-align:center}
+.qstep .qsub{text-align:center;color:var(--ink-soft);font-size:19px;max-width:none;margin:-8px auto 20px;line-height:1.55}
+.opts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.opt{cursor:pointer;font-size:16px;color:var(--ink-soft);background:var(--paper-2);
+  border:1px solid var(--line);border-radius:14px;padding:11px 15px;line-height:1.4;max-width:100%;
+  transition:all .25s var(--ease);position:relative;user-select:none}
+.opt:hover{border-color:var(--olive);color:var(--ink)}
+.opt.sel{background:var(--forest);border-color:var(--forest);color:#F4F3EE}
+.opt.sel::before{content:"✓ ";color:#DDE7D1}
+#quizEmail{display:block;width:100%;max-width:420px;margin:0 auto;background:#fff;border:1px solid var(--line);
+  border-radius:100px;padding:15px 22px;font-family:inherit;font-size:16px;outline:none;transition:border .3s;text-align:center}
+#quizEmail:focus{border-color:var(--moss)}
+.qnav{display:flex;justify-content:center;align-items:center;gap:12px;min-height:48px;margin-top:30px}
+.quiz-note{text-align:center;font-size:16px;color:var(--moss);margin-top:14px;min-height:1.2em;font-weight:500}
+.quiz-result{margin-top:26px;border-radius:22px;overflow:hidden;background:var(--forest);color:#EDEDE5;
+  max-height:0;opacity:0;transition:max-height .7s var(--ease),opacity .6s var(--ease)}
+.quiz-result.show{max-height:1400px;opacity:1}
+.qr-grid{position:relative;min-height:480px;display:flex;align-items:center}
+.quiz-result .inner{position:relative;z-index:2;padding:clamp(28px,4.5vw,56px);max-width:600px;text-align:left;display:flex;flex-direction:column;align-items:flex-start}
+.quiz-result .eyebrow{color:var(--sage)}
+.quiz-result h3{font-size:clamp(22px,3vw,32px);font-weight:500;margin:14px 0 12px;color:#fff}
+.quiz-result p{color:rgba(237,237,229,.85);font-size:16px;max-width:48ch;margin:0 0 22px;line-height:1.6}
+.qr-media{position:absolute;inset:0;z-index:0}
+.qr-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.qr-media::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(22,30,24,.84),rgba(22,30,24,.5) 42%,rgba(22,30,24,.1) 72%,rgba(22,30,24,0))}
+
+/* reviews */
+.reviews{padding:60px 0;overflow:hidden}
+.rev-track-wrap{width:100vw;margin-left:calc(50% - 50vw);margin-top:8px;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);
+  mask:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+.rev-track{display:flex;align-items:stretch;gap:18px;width:max-content;padding:8px 0;animation:revslide 80s linear infinite}
+.rev-track-wrap:hover .rev-track{animation-play-state:paused}
+@keyframes revslide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rev{flex:0 0 360px;width:360px;background:var(--paper);border:1px solid var(--line-soft);border-radius:var(--r);padding:26px;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:14px}
+.rev .s{color:var(--purple);letter-spacing:2px;font-size:16px}
+.rev blockquote{margin:0;font-size:20px;line-height:1.5;color:var(--ink)}
+.rev .by{font-size:16px;font-weight:600;color:var(--ink)}
+.rev .by span{display:block;font-weight:400;color:var(--moss);margin-top:3px;font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+
+/* offer */
+.offer{padding:30px 0 26px}
+.offer-card{position:relative;border-radius:26px;overflow:hidden;color:#F4F3EE;
+  background-color:#1b271f;
+  background-image:linear-gradient(90deg,rgba(18,26,21,.9),rgba(18,26,21,.55) 58%,rgba(18,26,21,.32)),url('https://res.cloudinary.com/dcuswyfur/image/upload/v1782418603/ahhaj_dcdpk5.png');
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  padding:clamp(36px,5.4vw,76px);text-align:left}
+.offer-card h2{font-size:clamp(25px,3.6vw,40px);font-weight:500;max-width:22ch;margin:0}
+.offer-card .lede{margin:18px 0 0;max-width:58ch;color:rgba(244,243,238,.9);font-size:clamp(19px,1.9vw,22px);line-height:1.6}
+.offer-card .btn{margin-top:30px}
+.perks{padding:6px 0 60px}
+.perks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.perk{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px 24px;text-align:left}
+.perk .pic{width:30px;height:30px;color:var(--moss);margin-bottom:14px;display:block}
+.perk b{display:block;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.perk p{font-size:19px;color:var(--ink-soft);line-height:1.55}
+
+/* final cta */
+.finalcta{padding:40px 0 70px;text-align:center}
+.finalcta h2{font-size:clamp(28px,4.8vw,56px);font-weight:500;letter-spacing:-.04em;max-width:none;margin:0 auto;line-height:1.05}
+.finalcta .serif{font-style:italic;color:var(--moss);font-weight:400}
+.finalcta p{margin:18px auto 0;color:var(--ink-soft);max-width:46ch;font-size:19px}
+.finalcta .row{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* footer */
+.footer{background:var(--forest);color:#D9DAD0;padding:60px 0 28px}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px;padding-bottom:40px;border-bottom:1px solid rgba(217,218,208,.14)}
+.foot-brand b{font-size:24px;font-weight:700;color:#F4F3EE;letter-spacing:-.03em}
+.foot-logo{height:40px;width:auto;display:block;margin-bottom:4px;filter:brightness(0) invert(1);opacity:.92}
+.foot-brand b span{color:var(--ice)}
+.foot-brand p{font-size:19px;color:rgba(217,218,208,.6);margin-top:12px;max-width:34ch;line-height:1.6}
+.foot-brand .hwh{font-style:italic;font-size:18px;color:var(--sage);margin-top:14px}
+.foot-col h4{font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:rgba(217,218,208,.5);margin:0 0 14px}
+.foot-col a{display:block;font-size:16px;color:#D9DAD0;padding:5px 0;transition:color .3s}
+.foot-col a:hover{color:var(--sage)}
+.disclaimer{font-size:16px;color:rgba(217,218,208,.5);line-height:1.6;max-width:80ch;margin:26px 0 0}
+.foot-fine{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:16px;color:rgba(217,218,208,.5);
+  border-top:1px solid rgba(217,218,208,.14);padding-top:18px;margin-top:22px}
+
+/* responsive */
+@media(max-width:980px){
+  .nav-links{display:none}.menu-btn{display:inline-flex}
+  .sci-split{grid-template-columns:1fr;gap:28px}.proto-grid{grid-template-columns:1fr}
+  .meet-card{grid-template-columns:1fr}.meet-photo{min-height:320px}.meet-body h2{white-space:normal}
+  .shift-grid{grid-template-columns:1fr;gap:30px}
+  .trust-list{grid-template-columns:1fr;gap:30px}.rev-grid{grid-template-columns:1fr}
+  .perks-grid{grid-template-columns:1fr}.foot-top{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}
+  .trustbar-grid{grid-template-columns:1fr 1fr;gap:18px 26px}.trustbar-grid .tb{border-left:0;padding-left:0}
+  .qstep h3{font-size:19px}
+  .qhead h2{white-space:normal}
+}
+@media(max-width:560px){
+  .foot-top{grid-template-columns:1fr}.anews .row{gap:10px;font-size:16px}
+  .nav{top:0}.hero{padding:118px 0 20px}.brand .logo{height:32px}
+  .hero-photo{background-image:url("https://res.cloudinary.com/dcuswyfur/image/upload/v1782479572/Stuart_H._Garber_1_wewxgs.png");background-position:center top}
+  .hero-ticks{grid-template-columns:1fr}
+  .trustbar-grid{grid-template-columns:1fr}
+  .hero-kicker{white-space:normal;letter-spacing:.04em}
+  .hero-card::after{background:linear-gradient(180deg,rgba(8,22,15,.25),rgba(8,22,15,.05) 35%,rgba(8,22,15,.85) 100%)}
+  .offer-card{background-image:linear-gradient(180deg,rgba(18,26,21,.82),rgba(18,26,21,.7)),url("https://res.cloudinary.com/dcuswyfur/image/upload/v1782479699/ChatGPT_Image_25_Haz_2026_22_47_08_1_bijfz0.png");background-position:center}
+  .qr-grid{grid-template-columns:1fr;display:grid;min-height:0;align-items:stretch}
+  .qr-media{position:static;inset:auto;z-index:auto;min-height:0;order:-1}
+  .qr-media::after{display:none}
+  .qr-media img{position:static;width:100%;height:auto;object-fit:contain}
+  .quiz-result .inner{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto}
+  .reveal,[data-stagger]>*,.hero-sub,.hero-ticks,.hero-cta{opacity:1!important;transform:none!important}
+  .hero h1 .ln i{transform:none!important}
+  .rev-track{animation:none!important}.rev-track-wrap{overflow-x:auto}
+  .gallery-track{animation:none!important}.gallery-track-wrap{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+<div class="progress" id="progress"></div>
+
+<!-- ANNOUNCEMENT -->
+<div class="anews" id="anews">
+  <div class="row">
+    <span><b>Heal Without Harm™</b></span><span class="sep">·</span>
+    <span>60-Day Unconditional Money-Back Guarantee</span><span class="sep">·</span>
+    <span>30% Off Plus Free U.S. Shipping on Your First Order</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img class="logo" src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782408721/dr-garbers-bioformulas-logo_f42b2050-2186-436c-b5a1-478f93b0360f_l3pur6.webp" alt="Dr. Garber’s Bioformulas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <span style="display:none;flex-direction:column;line-height:1">
+        <b>Dr. Garber<span>’s</span></b>
+        <small>Bioformulas</small>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#shift">The Shift</a>
+      <a href="#meet">Dr. Garber</a>
+      <a href="#science">The Science</a>
+      <a href="#protocols">Protocols</a>
+      <a href="#quiz">Find Yours</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+    <div class="nav-right">
+      <a href="#protocols" class="btn btn--moss" style="padding:11px 20px">Choose Your Protocol</a>
+      <button class="btn btn--ghost menu-btn" aria-label="Menu" style="padding:10px 14px">Menu</button>
+    </div>
+  </div>
+</nav>
+
+<span id="top"></span>
+
+<!-- 1. HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-card" id="heroCard">
+      <div class="hero-photo"></div>
+      <svg class="hero-noise" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+      <div class="hero-content">
+        <span class="hero-kicker">As heard on the Homeopathy Hangout — a Top 1% podcast worldwide</span>
+        <h1>
+          <span class="ln"><i>For 45 Years, Hollywood’s Biggest</i></span>
+          <span class="ln"><i>Names Trusted One Healer.</i></span>
+          <span class="ln"><i class="accent">Now His Protocols Are Yours.</i></span>
+        </h1>
+        <p class="hero-sub">Dr. Stuart Garber quietly kept celebrities, artists, and Cirque du Soleil performers at their best for four decades. His Bioformulas don’t silence your symptoms — they support your whole body as one connected system. The way healing was meant to work.</p>
+        <div class="hero-cta">
+          <a href="#protocols" class="btn">Choose Your Protocol <span class="arr">→</span></a>
+          <a href="#quiz" class="btn btn--ghost">Take the 60-Second Quiz</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="trustbar">
+  <div class="wrap">
+    <div class="trustbar-grid reveal" data-stagger>
+      <div class="tb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9.2 14.3 8 22l4-2.2L16 22l-1.2-7.7"/></svg>
+        <span>First person in the U.S. ever to earn a Ph.D. in homeopathy</span>
+      </div>
+      <div class="tb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <span>In practice since 1981, more than 45 years</span>
+      </div>
+      <div class="tb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 22c0-5 4-8 9-9"/></svg>
+        <span>No known side effects, and won’t interfere with your medications</span>
+      </div>
+      <div class="tb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4.5"/></svg>
+        <span>60-Day Unconditional Money-Back Guarantee</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THE SHIFT -->
+<section class="shift" id="shift">
+  <div class="wrap">
+    <div class="shift-grid reveal">
+      <div class="shift-text">
+        <span class="eyebrow">The Shift</span>
+        <h2>You’ve Been Told to Treat the Symptom.<br>Your Body Has Been Asking<br>for Something Else.</h2>
+        <div class="body">
+          <p>You already know the routine. One pill for the energy that never quite returns. Another for the sleep that won’t come. Something for the immune system that folds the moment you travel. Each one treats a part, never the whole, and somehow you’re managing more symptoms than ever.</p>
+          <p>You’ve done your homework. You don’t want anything that suppresses what your body is trying to tell you, or that quietly costs you somewhere else. You want to feel like yourself again — clear, strong, steady — without the trade-offs.</p>
+        </div>
+        <p class="close">That’s exactly the problem Dr. Garber spent his career solving.</p>
+      </div>
+      <div class="shift-media">
+        <img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782418660/ChatGPT_Image_25_Haz_2026_22_48_18_1_ln0ak2.png" alt="Dr. Garber’s Bioformulas — supporting the whole system, not just the symptom" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. MEET DR. GARBER -->
+<section class="meet" id="meet">
+  <div class="wrap">
+    <div class="meet-card reveal">
+      <div class="meet-photo">
+        <div class="cap"><b>Dr. Stuart Garber, Ph.D., DC</b>Homeopath to the Stars · Santa Fe, NM</div>
+      </div>
+      <div class="meet-body">
+        <span class="eyebrow">Meet Dr. Garber</span>
+        <h2>Meet the “Homeopath to the Stars”</h2>
+        <div class="meet-story">
+          <p>In 1985 I took over a small Los Angeles practice and turned it into the first integrative health institute in the city — homeopathy, chiropractic, acupuncture, and nutrition, all under one roof. Word travelled. Soon I was caring for some of the most recognizable people in the world.</p>
+        </div>
+        <div class="names">Penny Marshall, Sharon Stone, Barbra Streisand, Seal, and Raquel Welch — and the artists of Cirque du Soleil, whose official chiropractor I became on the West Coast.</div>
+        <div class="meet-story">
+          <p>But treating the famous was never the point. In 1997 I became the first person in the United States ever awarded a Ph.D. in homeopathy, training under the world’s leading homeopaths, including Dr. Trevor Cook, the homeopath to Britain’s Queen Mother. I served as president of the California Homeopathic Medical Society. And ten years ago, my wife Helen and I traded the Hollywood scene for a horse ranch in Santa Fe — closer to the land, the animals, and the kind of healing I believe in.</p>
+          <p>After 45 years, my mission hasn’t changed: <em>help people take ownership of their health, and heal without harm.</em></p>
+        </div>
+        <div class="meet-creds">
+          <div><b data-count="45">0</b><span>Years in practice</span></div>
+          <div><b>1997</b><span>First U.S. Ph.D. in homeopathy</span></div>
+          <div><b>1981</b><span>In practice since</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="gallery-track-wrap reveal">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422056/wholefoodslb2_q9s6ii.jpg" alt="Dr. Garber’s Bioformulas on shelf at Whole Foods" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422060/wholefoods-hillcrest2_fywb4k.jpg" alt="Whole Foods Hillcrest display" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422061/wholefoodshilcrest_n3wpoq.jpg" alt="Whole Foods Hillcrest shelf" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422070/sign_jhcykw.jpg" alt="Dr. Garber’s Bioformulas in-store signage" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422082/R0012111_dlnbfe.jpg" alt="Dr. Garber’s Bioformulas in store" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422083/lafayette-2_l9tckl.jpg" alt="Lafayette store shelf" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422086/lafayette1_daowoo.jpg" alt="Lafayette store display" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422089/IMG_0271_l22l0f.jpg" alt="Dr. Garber’s Bioformulas retail" loading="lazy"></div>
+      <div class="gshot"><img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782422087/in-action_eubxpp.jpg" alt="Dr. Garber’s Bioformulas in action" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. THE SCIENCE -->
+<section class="science" id="science">
+  <div class="wrap">
+    <div class="sci-split">
+    <div class="sci-intro reveal">
+      <span class="eyebrow">The Science</span>
+      <h2 style="margin-top:14px">I Combined Three Healing Sciences Into One Formula. No Homeopath<br>Had Ever Done It.</h2>
+      <p>Over twenty years in clinical practice, I couldn’t find products that met my standards, so I made my own. In my lab, I began blending three biotherapies that had always been used separately. Brought together in exactly the right way, they work in a synergy the body recognizes. I call them my Bioformulas. To this day, I know of no other homeopath who integrates all three into a single formula.</p>
+    </div>
+
+    <div class="triad" data-stagger>
+      <article class="tri">
+        <div class="ic ic-gem"><svg viewBox="0 0 24 24"><path d="M5 19C5 11 11 5 19 5c0 8-6 14-14 14Z" fill="#fff" opacity=".95"/><path d="M5 19C8 14 13 9 18 6" stroke="#445233" stroke-width="1.4" fill="none"/></svg></div>
+        <h3>Gemmotherapy</h3>
+        <p>The regenerative energy of plant buds and young shoots — often called “plant stem cells.”</p>
+      </article>
+      <article class="tri">
+        <div class="ic ic-lith"><svg viewBox="0 0 24 24"><path d="M12 2 4 9l3 11h10l3-11-8-7Z" fill="#fff" opacity=".95"/><path d="M12 2 7 20M12 2l5 18M4 9h16" stroke="#7a6a48" stroke-width="1" fill="none"/></svg></div>
+        <h3>Lithotherapy</h3>
+        <p>The trace-mineral intelligence of the earth.</p>
+      </article>
+      <article class="tri">
+        <div class="ic ic-org"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.4-7 10-7 10Z" fill="#fff" opacity=".95"/></svg></div>
+        <h3>Organotherapy</h3>
+        <p>Targeted support drawn from glandular and organ tissue.</p>
+      </article>
+    </div>
+    </div>
+
+    <div class="trust-list reveal">
+      <div class="trust-text">
+        <h3>Why people — and their doctors — trust them:</h3>
+        <ul class="trust-grid">
+          <li><span class="ck">✓</span> No known side effects.</li>
+          <li><span class="ck">✓</span> Won’t interfere with allopathic drugs — SSRIs, blood-pressure meds, statins, or diabetes medication.</li>
+          <li><span class="ck">✓</span> Works with your supplements, and helps your body use key minerals.</li>
+          <li><span class="ck">✓</span> Supports the whole body as one system, not isolated symptoms.</li>
+        </ul>
+        <p class="trust-foot">Take them alongside whatever you’re already on. Over time, many people find they need less. That’s what healing without harm looks like.</p>
+      </div>
+      <div class="trust-media">
+        <img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782421222/ChatGPT_Image_26_Haz_2026_00_00_10_eysptv.png" alt="Dr. Garber’s Bioformulas working safely alongside everyday medications and supplements" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. THE PROTOCOLS -->
+<section class="protocols" id="protocols">
+  <div class="wrap">
+    <div class="sec-head sec-head--center reveal">
+      <h2>Three Protocols. One Philosophy:<br>Support the System, Not the Symptom.</h2>
+      <p class="lede">Each protocol pairs three of Dr. Garber’s Bioformulas, designed to work together with a complete, synergistic approach — in one box.</p>
+    </div>
+
+    <div class="proto-grid" data-stagger>
+      <!-- AGING WELL -->
+      <article class="proto">
+        <div class="top t-age">
+          <img class="top-img" src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782415394/ChatGPT_Image_25_Haz_2026_22_22_15_o6llvh.png" alt="Aging Well Protocol — Bone Strength, Joint Health, Metabolic Vitality" loading="lazy">
+          <div class="top-meta">
+            <div class="kick">The longevity protocol</div>
+            <h3>Aging Well Protocol</h3>
+          </div>
+        </div>
+        <div class="mid">
+          <p class="desc">Aging well isn’t about slowing down. It’s about keeping the strength, mobility, and vitality to live fully. This protocol supports the systems that quietly carry you: your bones, your joints, and your metabolism.</p>
+          <div class="inside">
+            <div class="it"><span class="ck">✓</span><div><b>Bone Strength</b> — <span>skeletal support to help you stay sturdy and capable.</span></div></div>
+            <div class="it"><span class="ck">✓</span><div><b>Joint Health</b> — <span>mobility and comfort support for the joints that keep you moving.</span></div></div>
+            <div class="it"><span class="ck">✓</span><div><b>Metabolic Vitality</b> — <span>natural hormone balance to support energy and a steady metabolism.</span></div></div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="price"><b>$99.95</b><span>complete protocol · individual bottles $34.99 each</span></div>
+          <a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener" class="btn">Start with Aging Well <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <!-- IMMUNE -->
+      <article class="proto">
+        <div class="top t-imm">
+          <img class="top-img" src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782416045/ChatGPT_Image_25_Haz_2026_22_33_50_wjcnuu.png" alt="Staying Well Protocol — Immune Boost, Lung Health, Enviro Defense" loading="lazy">
+          <div class="top-meta">
+            <div class="kick">Immune defense &amp; recovery</div>
+            <h3>Staying Well Protocol</h3>
+          </div>
+        </div>
+        <div class="mid">
+          <p class="desc">Strong immunity isn’t aggressive. It’s prepared, adaptable, and resilient. This protocol supports your body’s ability to meet challenges and recover without being pushed into overdrive.</p>
+          <div class="inside">
+            <div class="it"><span class="ck">✓</span><div><b>Immune Boost</b> — <span>foundational support to help your immune system respond efficiently, not excessively.</span></div></div>
+            <div class="it"><span class="ck">✓</span><div><b>Lung Health</b> — <span>respiratory resilience where your body meets the outside world.</span></div></div>
+            <div class="it"><span class="ck">✓</span><div><b>Enviro Defense</b> — <span>support against the everyday environmental burden of pollution, chemicals, and irritants.</span></div></div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="price"><b>$99.95</b><span>complete protocol · individual bottles $34.99 each</span></div>
+          <a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener" class="btn">Start with Staying Well <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <!-- STRESS -->
+      <article class="proto">
+        <div class="top t-str">
+          <img class="top-img" src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782415925/ChatGPT_Image_25_Haz_2026_22_23_30_ndqbr1.png" alt="Resting Well Protocol — Anxiety Relief, Mood Boost, Sleep Aid" loading="lazy">
+          <div class="top-meta">
+            <div class="kick">Stress, mood &amp; sleep</div>
+            <h3>Resting Well Protocol</h3>
+          </div>
+        </div>
+        <div class="mid">
+          <p class="desc">Steady your nervous system and reclaim your sleep. Support for the stress that doesn’t clock out at 5pm, so you feel grounded through the long days and actually rest through the night. This is support for regulation, not suppression.</p>
+          <div class="inside">
+            <div class="it"><span class="ck">✓</span><div><b>Anxiety Relief</b> — <span>stress-response support to ease the body out of constant alert.</span></div></div>
+            <div class="it"><span class="ck">✓</span><div><b>Mood Boost</b> — <span>emotional-balance support to smooth the highs and lows.</span></div></div>
+            <div class="it"><span class="ck">✓</span><div><b>Sleep Aid</b> — <span>restorative-sleep support so your nervous system can reset.</span></div></div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="price"><b>$99.95</b><span>complete protocol · individual bottles $34.99 each</span></div>
+          <a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener" class="btn">Start with Resting Well <span class="arr">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 6. QUIZ -->
+<section class="quiz" id="quiz">
+  <div class="wrap">
+    <div class="quiz-shell reveal">
+      <div class="qhead">
+        <span class="eyebrow">Choose Your Protocol</span>
+        <h2>Not Sure Where to Start? Let’s Find Your Protocol.</h2>
+        <p>Answer five quick questions, selecting all that apply, and we’ll point you to the protocol your body is asking for. About 60 seconds.</p>
+      </div>
+
+      <div class="quiz-box" id="quizBox">
+        <div class="qbar">
+          <div class="qmeta"><span id="qLabel">Question 1 of 5</span><span id="qPct">17%</span></div>
+          <div class="qprogress"><i id="qProgress"></i></div>
+        </div>
+
+        <div class="qstep active" data-step="0">
+          <h3>Which statement feels most true right now?</h3>
+          <div class="opts">
+            <div class="opt" data-tag="aging">I want to stay active, strong, and independent as I get older.</div>
+            <div class="opt" data-tag="immune">I want to feel more resilient and bounce back faster when life challenges my health.</div>
+            <div class="opt" data-tag="stress">I want to feel calmer, sleep better, and handle stress more easily.</div>
+            <div class="opt" data-tag="aging">I want to protect my long-term vitality and quality of life.</div>
+            <div class="opt" data-tag="immune">I want to support my body’s natural defenses year-round.</div>
+          </div>
+        </div>
+        <div class="qstep" data-step="1">
+          <h3>What would have the biggest impact on your daily life?</h3>
+          <div class="opts">
+            <div class="opt" data-tag="aging">More strength, energy, and mobility.</div>
+            <div class="opt" data-tag="immune">Feeling less vulnerable to seasonal and environmental challenges.</div>
+            <div class="opt" data-tag="stress">Better sleep and less overwhelm.</div>
+            <div class="opt" data-tag="aging">Confidence that I’m aging as well as possible.</div>
+            <div class="opt" data-tag="immune">Faster recovery if I catch something.</div>
+            <div class="opt" data-tag="stress">Greater emotional balance throughout the day.</div>
+          </div>
+        </div>
+        <div class="qstep" data-step="2">
+          <h3>Which goal is most important to you right now?</h3>
+          <div class="opts">
+            <div class="opt" data-tag="aging">Maintaining my health and vitality for the years ahead.</div>
+            <div class="opt" data-tag="immune">Staying well and recovering well.</div>
+            <div class="opt" data-tag="stress">Supporting my mood, stress levels, and sleep.</div>
+            <div class="opt" data-tag="aging">Staying physically capable and active.</div>
+            <div class="opt" data-tag="immune">Building resilience before challenges arise.</div>
+            <div class="opt" data-tag="stress">Feeling rested, refreshed, and emotionally steady.</div>
+          </div>
+        </div>
+        <div class="qstep" data-step="3">
+          <h3>When you think about your health, what concerns you most?</h3>
+          <div class="opts">
+            <div class="opt" data-tag="aging">Losing strength and mobility.</div>
+            <div class="opt" data-tag="immune">Feeling run down too often.</div>
+            <div class="opt" data-tag="stress">Poor sleep due to stress.</div>
+            <div class="opt" data-tag="aging">Not feeling as vital as I used to be.</div>
+            <div class="opt" data-tag="immune">Taking longer than I’d like to recover.</div>
+            <div class="opt" data-tag="stress">Feeling overwhelmed more often than I’d like.</div>
+          </div>
+        </div>
+        <div class="qstep" data-step="4">
+          <h3>What are you hoping to experience more of?</h3>
+          <div class="opts">
+            <div class="opt" data-tag="stress">More rest and emotional well-being.</div>
+            <div class="opt" data-tag="immune">More confidence in my body’s ability to stay well.</div>
+            <div class="opt" data-tag="stress">Deeper sleep and a calmer mind.</div>
+            <div class="opt" data-tag="aging">I want to stay active, independent, and strong for years to come.</div>
+            <div class="opt" data-tag="aging">I want to support my health proactively, not just react when something goes wrong.</div>
+            <div class="opt" data-tag="immune">More resilience, no matter what’s going around.</div>
+            <div class="opt" data-tag="stress">I want to feel calmer, more focused, and better equipped to handle stress.</div>
+          </div>
+        </div>
+        <div class="qnav">
+          <button class="btn btn--ghost" id="qBack" type="button" style="display:none">← Back</button>
+          <button class="btn" id="qNext" type="button">Next <span class="arr">→</span></button>
+        </div>
+        <div class="quiz-note" id="quizNote"></div>
+      </div>
+
+      <div class="quiz-result" id="quizResult">
+        <div class="qr-grid">
+          <div class="inner">
+            <span class="eyebrow">Your Result</span>
+            <h3 id="resTitle"></h3>
+            <p id="resBody"></p>
+            <a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener" class="btn btn--light" id="resBtn"></a>
+          </div>
+          <div class="qr-media"><img id="resImg" src="" alt="Your recommended protocol"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head sec-head--center reveal">
+      <span class="eyebrow">Real results · real people</span>
+      <h2>Thousands Have Felt the Difference.<br>Here’s What That Looks Like.</h2>
+      <div class="rating-badge">
+        <span class="rstars">★★★★★</span>
+        <b>4.78</b>
+        <span class="rmeta">out of 5 · <strong>288</strong> verified reviews</span>
+      </div>
+    </div>
+  </div>
+  <div class="rev-track-wrap reveal">
+    <div class="rev-track" id="revTrack">
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“I can’t believe how well Immune Boost held up for me on my trip to Japan during their worst flu season in 25 years. We were surrounded by people coughing and sneezing and both stayed completely healthy. Something I now depend on for travel.”</blockquote>
+        <div class="by">Ariana S. <span>Immune Boost · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“I take this whenever I feel something coming on and usually start to feel better overnight. I love that you can take it as needed without overstimulating your immune system, which matters to me since I have autoimmune issues.”</blockquote>
+        <div class="by">Rachel S. <span>Immune Boost · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“I had tried everything—and I mean EVERYTHING—for these intensely itchy…”</blockquote>
+        <div class="by">Abby Horowitz <span>Skin Health · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“Long shifts in a mask (I’m a nurse) did a number on my skin. I was constantly…”</blockquote>
+        <div class="by">Courtney T. <span>Skin Health · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“My dermatologist wanted to put me on antibiotics for my acne, but my mom…”</blockquote>
+        <div class="by">Lila T. <span>Skin Health · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“Amazing product! I still had no complete relief, even after immunotherapy for 3…”</blockquote>
+        <div class="by">Patricia Brown Montera <span>Enviro Defense · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“I started using Immune Boost almost a month ago. There have been so many illnesses going through our area, and even though I’ve been around many people who don’t follow infection-control guidelines, I have remained healthy.”</blockquote>
+        <div class="by">jmsuther <span>Immune Boost · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“Terrific product, interesting ingredients. Nothing else like it that I’ve come across. Haven’t been sick once since taking it regularly. Highly recommend it.”</blockquote>
+        <div class="by">HKG <span>Immune Boost · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“By the end of the school day I felt like I was moving through molasses. After a few weeks my energy actually started to level out, and now I have the energy to walk the dog after school daily.”</blockquote>
+        <div class="by">Sarah Dobbs <span>Energy &amp; Metabolic · Verified</span></div>
+      </article>
+      <article class="rev">
+        <div class="s">★★★★★</div>
+        <blockquote>“Working in healthcare, stress is part of the job. I use this before double shifts and it steadies me without that flat medicated feeling. It has become part of my self-care routine.”</blockquote>
+        <div class="by">DD, RN <span>Resting Well · Verified</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 8. THE OFFER -->
+<section class="offer" id="offer">
+  <div class="wrap">
+    <div class="offer-card reveal">
+      <h2>Try It for 60 Days. If Your Body Doesn’t Agree, We’ll Refund Every Cent.</h2>
+      <p class="lede">We can talk about synergy and science all day. What matters is how you feel. So the risk is entirely ours: try your protocol for a full 60 days, and if it’s not right for you, we’ll give you your money back — unconditionally.</p>
+      <a href="#protocols" class="btn btn--light">Choose Your Protocol <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="perks">
+  <div class="wrap">
+    <div class="perks-grid reveal" data-stagger>
+      <div class="perk">
+        <svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4.5"/></svg>
+        <b>60-Day Money-Back Guarantee</b>
+        <p>A full 60 days to decide — even though each protocol is a 30-day supply. Finish the bottles. If your body doesn’t agree, every cent comes back.</p>
+      </div>
+      <div class="perk">
+        <svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 11.4l7.8-7.8a2 2 0 0 1 1.4-.6H19a2 2 0 0 1 2 2v6.2a2 2 0 0 1-.6 1.4l-7.8 7.8a2 2 0 0 1-2.8 0L3.6 14.2a2 2 0 0 1 0-2.8z"/><circle cx="16.3" cy="7.7" r="1.2"/></svg>
+        <b>30% Off Your First Order</b>
+        <p>Your welcome pricing, applied automatically at checkout on your first protocol.</p>
+      </div>
+      <div class="perk">
+        <svg class="pic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2l-9-5-9 5 9 5 9-5z"/><path d="M3 8.2v8l9 5 9-5v-8"/><path d="M12 13.2v8"/></svg>
+        <b>Free U.S. Shipping</b>
+        <p>Free shipping anywhere in the U.S. on your first order — no minimums.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FINAL CTA -->
+<section class="finalcta">
+  <div class="wrap reveal">
+    <h2>Your Body Has Been Asking for This.<br><span class="serif">Give It an Answer.</span></h2>
+    <p>Choose your protocol, or take the 60-second quiz and we’ll choose with you. Heal without harm, starting today.</p>
+    <div class="row">
+      <a href="#protocols" class="btn">Choose Your Protocol <span class="arr">→</span></a>
+      <a href="#quiz" class="btn btn--ghost">Take the Quiz</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img class="foot-logo" src="https://res.cloudinary.com/dcuswyfur/image/upload/v1782408721/dr-garbers-bioformulas-logo_f42b2050-2186-436c-b5a1-478f93b0360f_l3pur6.webp" alt="Dr. Garber’s Bioformulas">
+        <p>Three healing sciences — gemmotherapy, lithotherapy, and organotherapy — integrated into a single formula. Supporting your whole body as one connected system.</p>
+        <div class="hwh">Heal Without Harm™</div>
+      </div>
+      <div class="foot-col">
+        <h4>Protocols</h4>
+        <a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener">Aging Well</a><a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener">Staying Well</a><a href="https://drgarbers.com/collections/all-items" target="_blank" rel="noopener">Resting Well</a><a href="#quiz">Find Your Protocol</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#meet">Meet Dr. Garber</a><a href="#science">The Science</a><a href="#reviews">Reviews</a><a href="#offer">Guarantee</a>
+      </div>
+    </div>
+    <p class="disclaimer">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <div class="foot-fine">
+      <span>© 2026 Dr. Garber’s Bioformulas. All rights reserved.</span>
+      <span>60-Day Unconditional Money-Back Guarantee · Heal Without Harm™</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const nav=document.getElementById('nav'), anews=document.getElementById('anews'), prog=document.getElementById('progress');
+function onScroll(){
+  const h=document.documentElement, sc=h.scrollTop, max=h.scrollHeight-h.clientHeight;
+  prog.style.width=(max>0?(sc/max*100):0)+'%';
+  const past=sc>24;
+  nav.classList.toggle('scrolled',past);
+  nav.classList.toggle('top0',past);
+  anews.classList.toggle('hide',past);
+}
+window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+requestAnimationFrame(()=>document.getElementById('heroCard').classList.add('in'));
+
+/* seamless review carousel loop */
+const revTrack=document.getElementById('revTrack');
+if(revTrack) revTrack.innerHTML+=revTrack.innerHTML;
+const galleryTrack=document.getElementById('galleryTrack');
+if(galleryTrack) galleryTrack.innerHTML+=galleryTrack.innerHTML;
+
+/* reveal */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target;el.classList.add('in');
+  if(el.hasAttribute('data-stagger')){[...el.children].forEach((c,k)=>c.style.transitionDelay=(k*90)+'ms');}io.unobserve(el);}});},
+  {threshold:.16,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal,[data-stagger]').forEach(el=>io.observe(el));
+
+/* count up */
+function animateCount(el){const target=parseFloat(el.dataset.count),dur=1300,start=performance.now();
+  function tick(now){let t=Math.min((now-start)/dur,1);t=1-Math.pow(1-t,3);el.textContent=Math.round(target*t);
+  if(t<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+const cio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){reduce?e.target.textContent=e.target.dataset.count:animateCount(e.target);cio.unobserve(e.target);}});},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+/* quiz */
+const results={
+  aging:{t:'Your body is asking for the Aging Well Protocol.',
+    b:'You’re focused on staying strong, capable, and vital for the years ahead. Bone Strength, Joint Health, and Metabolic Vitality work together to support exactly that.',
+    cta:'Get the Aging Well Protocol',l:'https://drgarbers.com/products/joint-health',
+    img:'https://res.cloudinary.com/dcuswyfur/image/upload/v1782482410/ChatGPT_Image_26_Haz_2026_16_57_57_1_nh1s55.png'},
+  immune:{t:'Your body is asking for the Staying Well Protocol.',
+    b:'You want to feel resilient and bounce back fast. Immune Boost, Lung Health, and Enviro Defense support your defenses and recovery year-round.',
+    cta:'Get the Staying Well Protocol',l:'https://drgarbers.com/products/immune-boost',
+    img:'https://res.cloudinary.com/dcuswyfur/image/upload/v1782482841/ChatGPT_Image_26_Haz_2026_17_05_54_1_b1gra3.png'},
+  stress:{t:'Your body is asking for the Resting Well Protocol.',
+    b:'You’re ready for calmer days and deeper rest. Anxiety Relief, Mood Boost, and Sleep Aid support your nervous system’s ability to settle, reset, and recover.',
+    cta:'Get the Resting Well Protocol',l:'https://drgarbers.com/products/sleep-aid',
+    img:'https://res.cloudinary.com/dcuswyfur/image/upload/v1782483068/ChatGPT_Image_26_Haz_2026_17_05_54_1_bohi0g.png'}
+};
+const order=['aging','immune','stress'];
+const qSteps=[...document.querySelectorAll('.qstep')];
+const qTotal=qSteps.length;
+let qCur=0;
+const qBack=document.getElementById('qBack'), qNext=document.getElementById('qNext');
+const qNote=document.getElementById('quizNote'), qLabel=document.getElementById('qLabel');
+const qPct=document.getElementById('qPct'), qProgress=document.getElementById('qProgress');
+const quizBox=document.getElementById('quizBox');
+
+document.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{o.classList.toggle('sel');qNote.textContent='';}));
+
+function qRender(){
+  qSteps.forEach((s,i)=>s.classList.toggle('active',i===qCur));
+  qBack.style.display=qCur===0?'none':'inline-flex';
+  const isLast=qCur===qTotal-1;
+  qLabel.textContent='Question '+(qCur+1)+' of '+qTotal;
+  const pct=Math.round(((qCur+1)/qTotal)*100);
+  qPct.textContent=pct+'%'; qProgress.style.width=pct+'%';
+  qNext.innerHTML=isLast?'See My Protocol <span class="arr">→</span>':'Next <span class="arr">→</span>';
+  qNote.textContent='';
+}
+function qScroll(){ quizBox.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'}); }
+qBack.addEventListener('click',()=>{ if(qCur>0){qCur--;qRender();qScroll();} });
+qNext.addEventListener('click',()=>{
+  if(qSteps[qCur].querySelectorAll('.opt.sel').length===0){qNote.textContent='Pick at least one that applies to continue.';return;}
+  if(qCur<qTotal-1){ qCur++; qRender(); qScroll(); return; }
+  const tally={aging:0,immune:0,stress:0};
+  document.querySelectorAll('.opt.sel').forEach(o=>tally[o.dataset.tag]++);
+  let win=order[0]; order.forEach(k=>{if(tally[k]>tally[win])win=k;});
+  const r=results[win];
+  document.getElementById('resTitle').textContent=r.t;
+  document.getElementById('resBody').textContent=r.b;
+  const rb=document.getElementById('resBtn'); rb.textContent=r.cta; rb.href=r.l;
+  document.getElementById('resImg').src=r.img;
+  quizBox.style.display='none';
+  const box=document.getElementById('quizResult'); box.classList.add('show');
+  setTimeout(()=>box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'}),120);
+});
+qRender();
+</script>
+</body>
+</html>
