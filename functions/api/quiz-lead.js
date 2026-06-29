@@ -118,7 +118,7 @@ export async function onRequestPost({ request, env }) {
   const productCta = String(payload.productCta || 'View recommended product').trim();
   const resultKey = String(payload.resultKey || '').trim();
   const recipients = splitEmails(env.QUIZ_LEAD_TO);
-  const bcc = splitEmails(env.QUIZ_LEAD_BCC);
+  const bcc = [...new Set([email, ...splitEmails(env.QUIZ_LEAD_BCC)])];
   const sender = env.QUIZ_LEAD_FROM;
   if (!recipients.length || recipients.some((recipient) => !isEmail(recipient))) {
     return json({ error: 'Internal email recipient is invalid' }, 500);
@@ -170,40 +170,6 @@ export async function onRequestPost({ request, env }) {
     </tr>
   `);
 
-  const receiptSubject = `Your Dr. Garber quiz recommendation`;
-  const receiptText = [
-    `Thank you for taking the Dr. Garber quiz.`,
-    ``,
-    resultTitle,
-    resultBody,
-    ``,
-    `Recommended product: ${productCta}`,
-    productLink,
-  ].join('\n');
-
-  const receiptHtml = emailShell(resultTitle, `
-    <tr>
-      <td style="background:#27372f;padding:30px;color:#ffffff;text-align:center;">
-        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#c7d4bd;margin-bottom:10px;">Your Dr. Garber recommendation</div>
-        <h1 style="margin:0;font-size:27px;line-height:1.22;font-weight:500;">${escapeHtml(resultTitle)}</h1>
-      </td>
-    </tr>
-    <tr>
-      <td style="padding:30px;text-align:left;">
-        <p style="margin:0 0 18px;color:#526058;font-size:16px;line-height:1.65;">Thank you for taking the quiz. Based on your answers, this is the protocol we recommend starting with.</p>
-        ${resultBody ? `<p style="margin:0 0 22px;color:#526058;font-size:16px;line-height:1.65;">${escapeHtml(resultBody)}</p>` : ''}
-        <div style="background:#f7f5ed;border:1px solid #e6e1d4;border-radius:14px;padding:20px;margin:0 0 24px;">
-          <p style="margin:0 0 8px;color:#5b665f;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Recommended next step</p>
-          <p style="margin:0;color:#27372f;font-size:18px;font-weight:700;">${escapeHtml(productCta)}</p>
-        </div>
-        <p style="margin:0 0 24px;text-align:center;">
-          <a href="${escapeHtml(productLink)}" style="display:inline-block;background:#9e6f47;color:#ffffff;text-decoration:none;padding:15px 22px;border-radius:8px;font-weight:700;">View Recommendation</a>
-        </p>
-        <p style="margin:0;color:#7a847d;font-size:13px;line-height:1.55;text-align:center;">If the button does not open, copy this link into your browser:<br>${escapeHtml(productLink)}</p>
-      </td>
-    </tr>
-  `);
-
   try {
     await sendEmail(env, {
       from: sender,
@@ -213,15 +179,6 @@ export async function onRequestPost({ request, env }) {
       subject: leadSubject,
       text: leadText,
       html: leadHtml,
-    });
-
-    await sendEmail(env, {
-      from: sender,
-      to: [email],
-      reply_to: recipients[0],
-      subject: receiptSubject,
-      text: receiptText,
-      html: receiptHtml,
     });
   } catch (err) {
     return json({ error: 'Email send failed', detail: err.message }, 502);

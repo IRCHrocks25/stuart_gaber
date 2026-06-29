@@ -2,28 +2,29 @@
 
 The quiz posts completed submissions to `/api/quiz-lead`.
 
-The Cloudflare Pages Function sends:
+The Cloudflare Pages Function sends one quiz lead email:
 
-- one internal lead email to `QUIZ_LEAD_TO`
-- one visitor receipt email to the quiz taker's email address
+- `to`: `QUIZ_LEAD_TO`
+- `bcc`: the email entered on the website
+- optional extra BCC recipients from `QUIZ_LEAD_BCC`
 
 ## Required Cloudflare Env Vars
 
 ```text
 RESEND_API_KEY=<resend api key>
 QUIZ_LEAD_FROM=Dr. Garber Quiz <drgarber@katek-ai.com>
-QUIZ_LEAD_TO=industryrockstarteam@gmail.com
+QUIZ_LEAD_TO=office@drgarbers.com
 ```
 
-For client handoff, change only:
+For testing before client handoff, temporarily use:
 
 ```text
-QUIZ_LEAD_TO=office@drgarbers.com
+QUIZ_LEAD_TO=industryrockstarteam@gmail.com
 ```
 
 ## Optional Env Var
 
-Use `QUIZ_LEAD_BCC` when testing needs a copy while the client is the main recipient.
+Use `QUIZ_LEAD_BCC` when another internal person needs a copy.
 
 ```text
 QUIZ_LEAD_BCC=industryrockstarteam@gmail.com
