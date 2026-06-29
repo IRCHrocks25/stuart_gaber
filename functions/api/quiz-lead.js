@@ -134,8 +134,7 @@ export async function onRequestPost({ request, env }) {
     `Email: ${email}`,
     `Result: ${resultTitle}`,
     `Result key: ${resultKey}`,
-    `Product CTA: ${productCta}`,
-    `Product link: ${productLink}`,
+    `Recommendation link: ${productLink}`,
     ``,
     `Quiz answers:`,
     answerLines(payload.answers),
@@ -157,9 +156,10 @@ export async function onRequestPost({ request, env }) {
         <h2 style="margin:0 0 10px;color:#27372f;font-size:20px;line-height:1.3;">${escapeHtml(resultTitle)}</h2>
         ${resultBody ? `<p style="margin:0 0 18px;color:#526058;line-height:1.6;">${escapeHtml(resultBody)}</p>` : ''}
         <p style="margin:0 0 18px;color:#526058;line-height:1.6;"><strong>Result key:</strong> ${escapeHtml(resultKey || 'n/a')}</p>
-        <p style="margin:0 0 24px;">
-          <a href="${escapeHtml(productLink)}" style="display:inline-block;background:#9e6f47;color:#ffffff;text-decoration:none;padding:13px 18px;border-radius:8px;font-weight:700;">${escapeHtml(productCta)}</a>
-        </p>
+        <div style="background:#ffffff;border:1px solid #e6e1d4;border-radius:14px;padding:16px;margin:0 0 24px;">
+          <p style="margin:0 0 8px;color:#5b665f;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Recommendation link</p>
+          <p style="margin:0;color:#27372f;line-height:1.5;word-break:break-word;"><a href="${escapeHtml(productLink)}" style="color:#27372f;text-decoration:underline;font-weight:700;">${escapeHtml(productLink || productCta)}</a></p>
+        </div>
         <h2 style="margin:26px 0 10px;color:#27372f;font-size:20px;">Quiz answers</h2>
         ${answerHtml(payload.answers)}
         <div style="border-top:1px solid #e6e1d4;margin-top:24px;padding-top:18px;color:#69756d;font-size:13px;line-height:1.6;">
