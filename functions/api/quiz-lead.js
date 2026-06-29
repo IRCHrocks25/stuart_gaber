@@ -46,6 +46,22 @@ function answerHtml(answers) {
     .join('');
 }
 
+async function sendEmail(env, message) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(body);
+  }
+}
+
 export async function onRequestPost({ request, env }) {
   if (!env.RESEND_API_KEY) {
     return json({ error: 'Email service is not configured' }, 500);
@@ -64,15 +80,17 @@ export async function onRequestPost({ request, env }) {
   const resultTitle = String(payload.resultTitle || 'Quiz result').trim();
   const productLink = String(payload.productLink || '').trim();
   const productCta = String(payload.productCta || 'View recommended product').trim();
+  const resultKey = String(payload.resultKey || '').trim();
   const recipient = env.QUIZ_LEAD_TO || DEFAULT_TO;
   const sender = env.QUIZ_LEAD_FROM || DEFAULT_FROM;
 
-  const subject = `Dr. Garber quiz lead: ${email}`;
-  const text = [
+  const leadSubject = `Dr. Garber quiz lead: ${email}`;
+  const leadText = [
     `New Dr. Garber quiz lead`,
     ``,
     `Email: ${email}`,
     `Result: ${resultTitle}`,
+    `Result key: ${resultKey}`,
     `Product CTA: ${productCta}`,
     `Product link: ${productLink}`,
     ``,
@@ -83,10 +101,11 @@ export async function onRequestPost({ request, env }) {
     `Client recipient when ready: ${CLIENT_TO}`,
   ].join('\n');
 
-  const html = `
+  const leadHtml = `
     <h2>New Dr. Garber quiz lead</h2>
     <p><strong>Email:</strong> ${escapeHtml(email)}</p>
     <p><strong>Result:</strong> ${escapeHtml(resultTitle)}</p>
+    <p><strong>Result key:</strong> ${escapeHtml(resultKey)}</p>
     <p><strong>Recommended product:</strong> <a href="${escapeHtml(productLink)}">${escapeHtml(productCta)}</a></p>
     <hr>
     <h2>Quiz answers</h2>
@@ -96,25 +115,43 @@ export async function onRequestPost({ request, env }) {
     <p><strong>Client recipient when ready:</strong> ${escapeHtml(CLIENT_TO)}</p>
   `;
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+  const receiptSubject = `Your Dr. Garber quiz recommendation`;
+  const receiptText = [
+    `Thank you for taking the Dr. Garber quiz.`,
+    ``,
+    resultTitle,
+    ``,
+    `Recommended product: ${productCta}`,
+    productLink,
+  ].join('\n');
+
+  const receiptHtml = `
+    <h2>Thank you for taking the Dr. Garber quiz.</h2>
+    <p><strong>${escapeHtml(resultTitle)}</strong></p>
+    <p>Your recommended next step is:</p>
+    <p><a href="${escapeHtml(productLink)}">${escapeHtml(productCta)}</a></p>
+  `;
+
+  try {
+    await sendEmail(env, {
       from: sender,
       to: [recipient],
       reply_to: email,
-      subject,
-      text,
-      html,
-    }),
-  });
+      subject: leadSubject,
+      text: leadText,
+      html: leadHtml,
+    });
 
-  if (!res.ok) {
-    const body = await res.text();
-    return json({ error: 'Email send failed', detail: body }, 502);
+    await sendEmail(env, {
+      from: sender,
+      to: [email],
+      reply_to: recipient,
+      subject: receiptSubject,
+      text: receiptText,
+      html: receiptHtml,
+    });
+  } catch (err) {
+    return json({ error: 'Email send failed', detail: err.message }, 502);
   }
 
   return json({ ok: true });

@@ -2,12 +2,14 @@
 
 The quiz posts completed submissions to `/api/quiz-lead`.
 
-The Cloudflare Pages Function sends:
+The Cloudflare Pages Function sends an internal lead email with:
 
 - visitor email
 - quiz answers
 - recommended protocol
 - recommended product link
+
+It also sends a separate receipt email to the visitor with their recommendation and product link.
 
 ## Testing Recipient
 
